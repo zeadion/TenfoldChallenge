@@ -1,23 +1,13 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)http://s.codepen.io/zeadion/debug/JEqORj/xJAjOWNyEzxk -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico">
-<link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111">
-<title>CodePen - A Pen by  José Adion Carvalho Andrade Júnior</title>
-
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-
-
-
-
-
+	<title>Tenfold Challenge by José Andrade</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 
-<body translate="no">
-
+<body>
 	<div class="container">
 		<h2>Tenfold Alien Number's Challenge</h2>
 		<div class="panel panel-default">
@@ -27,11 +17,11 @@
 			<div class="panel-body">
 				<div class="form-group">
 					<label for="value">Value:</label>
-					<input id="value" class="form-control" placeholder="mern dorn cresh leth xesh vev isk">
+					<input id="value" class="form-control" placeholder="(Ex: mern dorn cresh leth xesh vev isk)">
 				</div>
 				<div class="form-group">
 					<label for="quotation">Quotation:</label>
-					<input id="quotation" class="form-control" placeholder="1.0">
+					<input id="quotation" class="form-control" placeholder="(Ex: 1.0, 2.5, 3.14)">
 				</div>
 				<div class="form-group text-center">
 					<button id="btnDoIt" class="btn btn-primary btn-block">Do it!</button>
@@ -47,87 +37,13 @@
 	<script src="./Tenfold_files/jquery.min.js"></script>
 	<script src="./Tenfold_files/tether.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="tenfold.js"></script>
 
 	<script>
 		$(function(){
 			$("#btnDoIt").click(DoIt);
 		});
-		function DoIt(){
-			var value = $("#value").val().trim();
-			var quotation = parseFloat($("#quotation").val().trim());
-			var roman = AlienToRoman(value);
-			var result = "NaN"
-			if(roman>-1)
-				var arabic = parseInt(RomanToArabic(roman));
-			var result = 0;
-			if(arabic>=0)
-				result = arabic * quotation;
-		}
-		$("#result").text(result);
-	}
+	</script>
 
-	function AlienToRoman(alienVal) {
-		var roman = $(alienVal.split(" ")).map(parseAlienToRoman);
-		if($.inArray("NAN",roman)>=0)
-			return -1;
-		else
-			return roman.toArray().join("");
-	}
-	function parseAlienToRoman(i,alienVal){
-		switch(alienVal.toUpperCase()) {
-			case "ISK":
-				return "I";
-			break;
-			case "VEV":
-				return "V";
-			break;
-			case "XESH":
-				return "X";
-			break;
-			case "LETH":
-				return "L";
-			break;
-			case "CRESH":
-				return "C";
-			break;
-			case "DORN":
-				return "D";
-			break;
-			case "MERN":
-				return "M";
-			break;
-			default:
-				return "NAN";
-		}
-	}
-
-	function RomanToArabic(sRomanNumeral)
-	{
-		if (!sRomanNumeral.length) return 0;
-		//regexp that validates if it is a valid roman number
-		if (!sRomanNumeral.match("^(M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$")) return -1;
-		var sFirstChar = sRomanNumeral.charAt(0);
-		var sTwoChars = sRomanNumeral.substr(0,2);
-		//to convert, verify the two chars so we can check it is a subtraction case
-		if (sFirstChar == "M") return 1000 + RomanToArabic(sRomanNumeral.substr(1));
-		if (sTwoChars == "CM") return  900 + RomanToArabic(sRomanNumeral.substr(2));
-		if (sFirstChar == "D") return  500 + RomanToArabic(sRomanNumeral.substr(1));
-		if (sTwoChars == "CD") return  400 + RomanToArabic(sRomanNumeral.substr(2));
-		if (sFirstChar == "C") return  100 + RomanToArabic(sRomanNumeral.substr(1));
-		if (sTwoChars == "XC") return   90 + RomanToArabic(sRomanNumeral.substr(2));
-		if (sFirstChar == "L") return   50 + RomanToArabic(sRomanNumeral.substr(1));
-		if (sTwoChars == "XL") return   40 + RomanToArabic(sRomanNumeral.substr(2));
-		if (sFirstChar == "X") return   10 + RomanToArabic(sRomanNumeral.substr(1));
-		if (sTwoChars == "IX") return    9 + RomanToArabic(sRomanNumeral.substr(2));
-		if (sFirstChar == "V") return    5 + RomanToArabic(sRomanNumeral.substr(1));
-		if (sTwoChars == "IV") return    4 + RomanToArabic(sRomanNumeral.substr(2));
-		if (sFirstChar == "I") return    1 + RomanToArabic(sRomanNumeral.substr(1));
-	}
-</script>
-
-
-
-
-
-
-</body></html>
+</body>
+</html>
